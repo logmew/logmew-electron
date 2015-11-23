@@ -1,0 +1,20 @@
+{
+  "name": "logmew-electron",
+  "version": "0.1.0",
+  "authors": [
+    "HANAI tohru <hanai@pokelabo.co.jp>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "semantic": "semantic-ui#~2.1.6"
+  }
+}

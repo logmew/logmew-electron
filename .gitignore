@@ -24,3 +24,9 @@ node_modules
 
 # Mac
 .DS_Store
+
+# webpack bundle
+runtime/browser/bundle/
+
+# bower components
+src/components/

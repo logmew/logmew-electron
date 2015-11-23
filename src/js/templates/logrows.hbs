@@ -1,0 +1,8 @@
+{{#each logEntries}}
+<tr class="{{logRowColor logLevel}}">
+  <td class="time">{{formatTime time}}</td>
+  <td class="level">{{logLevel}}</td>
+  <td class="origin">{{origin}}</td>
+  <td class="message">{{message}}</td>
+</tr>
+{{/each}}
