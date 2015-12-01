@@ -12,3 +12,15 @@ th.origin,
 td.origin {
   width: 100px;
 }
+
+#pref-modal {
+  width: 33em;
+  input[type="text"],
+  input[type="password"] {
+    width: 30em;
+  }
+
+  input[name="port"] {
+    width: 8em;
+  }
+}

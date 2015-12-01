@@ -8,7 +8,7 @@ const influx = require('influx');
 const ipcMain = electron.ipcMain;
 const Prefs = require('./prefs');
 
-const prefs = Prefs.load();
+var prefs = Prefs.load();
 
 // Report crashes to Electron server.
 electron.crashReporter.start();
@@ -48,20 +48,26 @@ app.on('ready', function() {
 
   mainWindow.webContents.on('did-finish-load', function () {
     console.log('ready');
-    var influxClient = getInfluxClient();
+    var influxClient = influx(prefs.influx);
     var logFetcher = new LogFetcher(influxClient, 1000, 10);
     logFetcher.on('data', function (data) {
-      mainWindow.webContents.send('logEntries', data);
+      mainWindow.webContents.send('logEntriesServed', data);
     });
     logFetcher.start();
+
+    Prefs.on('changed', function (newPrefs) {
+      prefs = newPrefs;
+      influxClient = influx(prefs.influx);
+      logFetcher.setClient(influxClient);
+    });
   });
 
-  ipcMain.on('go', function (e, j) {
-    console.log(j);
+  ipcMain.on('getPrefRequested', function (e) {
+    e.sender.send('getPrefServed', prefs);
+  });
+
+  ipcMain.on('setPrefRequested', function (e, data) {
+    console.log('setPref', data);
+    Prefs.save(data);
   });
 });
-
-function getInfluxClient()
-{
-  return influx(prefs.influx);
-}

@@ -12,12 +12,13 @@ module.exports = {
   output: {
     path: './runtime/browser/bundle',
     filename: 'main.js',
-    publicPath: 'http://localhost:8080/'
+    publicPath: 'bundle/'
+    //publicPath: 'http://localhost:8080/'
   },
 
   devServer: {
     contentBase: './runtime/browser/',
-    publicPath: 'http://localhost:8080/'
+    //publicPath: 'http://localhost:8080/'
   },
 
   module: {

@@ -1,6 +1,5 @@
 'use strict';
 
-const ipcMain = require('electron').ipcMain;
 const events = require('events');
 
 module.exports =
@@ -17,6 +16,10 @@ class LogFetcher extends events.EventEmitter
   start () {
     this.timeGreaterThan = null;
     this.queryEvents();
+  }
+
+  setClient (client) {
+    this.client = client;
   }
 
   queryEvents () {
@@ -39,10 +42,6 @@ class LogFetcher extends events.EventEmitter
       setTimeout(this.queryEvents.bind(this), this.period);
     } else {
       this.emit('data', { logEntries: entries });
-      entries.forEach(function (entry) {
-        //var timestamp = moment(entry.time);
-        //console.log(timestamp.format('YYYY-MM-DD HH:mm:ss.SSS'));
-      });
       this.timeGreaterThan = entries[entries.length - 1].time;
       setTimeout(this.queryEvents.bind(this), (entries.length == this.limit) ? 1 : this.period);
     }

@@ -3,6 +3,30 @@
   <td class="time">{{formatTime time}}</td>
   <td class="level">{{logLevel}}</td>
   <td class="origin">{{origin}}</td>
-  <td class="message">{{message}}</td>
+  <td class="message">
+    {{message}}
+    <div class="location">
+      {{#if callerTop}}
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+            <span class="short">{{callerTop.method}} {{callerTop.file}}</span>
+          </div>
+          <div class="content">
+            <div class="ui list">
+              {{#each caller}}
+                <a class="item">
+                  <div class="content">
+                    <div class="header">{{method}}</div>
+                    <div class="description">{{file}}</div>
+                  </div>
+                </a>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    </td>
+  </td>
 </tr>
 {{/each}}

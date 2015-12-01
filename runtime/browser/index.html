@@ -1,22 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta charset="UTF-8">
-	<title>Hello World!</title>
+	  <meta charset="UTF-8">
+	  <title>Log Viewer - Logmew</title>
   </head>
   <body>
-	<h1>Hello World!</h1>
-	<button class="ui button" id="add">Add 1000</button>
-	<button class="ui button" id="more">Add and Remove</button>
-	<table class="ui table logview">
-	  <thead>
-		<th class="time"></th>
-		<th class="level"></th>
-		<th class="origin"></th>
-		<th class="message"></th>
-	  </thead>
-	  <tbody id="logview"></tbody>
-	</table>
-	<script type="application/javascript" src="bundle/main.js"></script>
+    <div class="ui fixed inverted menu" id="header-menu">
+      <div class="ui container">
+        <img class="logo" src="favicon.png" width="48" height="40"/>
+        <div class="item">Logmew</div>
+        <a href="#" class="item" id="pref-menu-item">Preference</a>
+      </div>
+    </div>
+
+	  <table class="ui table logview">
+	    <thead>
+		    <th class="time"></th>
+		    <th class="level"></th>
+		    <th class="origin"></th>
+		    <th class="message"></th>
+	    </thead>
+	    <tbody id="logview"></tbody>
+	  </table>
+
+    <div class="ui small modal" id="pref-modal">
+      <i class="close icon"></i>
+      <div class="header">
+        Preference
+      </div>
+      <div class="content">
+        <form class="ui form">
+          <div class="field">
+            <label>Host</label>
+            <input type="text" name="host">
+          </div>
+          <div class="field">
+            <label>Port</label>
+            <input type="number" name="port" min="1" max="32767">
+          </div>
+          <div class="field">
+            <label>Username</label>
+            <input type="text" name="username">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password">
+          </div>
+          <div class="field">
+            <label>Database</label>
+            <input type="text" name="database">
+          </div>
+        </form>
+      </div>
+      <div class="actions">
+        <div class="ui cancel button">Cancel</div>
+        <div class="ui positive button">OK</div>
+      </div>
+    </div>
+
+	  <script type="application/javascript" src="bundle/main.js"></script>
   </body>
 </html>

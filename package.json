@@ -28,7 +28,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=development ./node_modules/electron-prebuilt/dist/Electron.app/Contents/MacOS/Electron .",
-    "watch": "./node_modules/.bin/webpack-dev-server --config webpack-dev.config.js",
+    "watch": "./node_modules/.bin/webpack --config webpack.config.js --watch",
     "electron-rebuild": "./node_modules/.bin/electron-rebuild"
   },
   "dependencies": {

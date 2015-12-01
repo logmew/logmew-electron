@@ -3,6 +3,7 @@
 const electron = require('electron');
 const app = electron.app;
 const fs = require('fs');
+const events = require('events');
 const _ = require('lodash');
 
 var defaultPrefs = {
@@ -15,9 +16,10 @@ var defaultPrefs = {
   }
 };
 
-class Prefs
+class Prefs extends events.EventEmitter
 {
   constructor () {
+    super()
     this.prefPath = app.getPath('userData') + '/prefs.json';
     this.pref = false;
   }
@@ -34,20 +36,20 @@ class Prefs
     if (!this.pref) {
       this.pref = _.clone(defaultPrefs, true);
     }
-    console.log('pref', this.pref);
     return this.pref;
   }
 
-  save () {
-    if (this.pref === false) {
+  save (pref) {
+    if (!pref) {
       return false;
     }
 
     try {
-      writeFileSync(this.prefPath, JSON.stringify(this.pref));
+      fs.writeFileSync(this.prefPath, JSON.stringify(pref));
+      this.pref = pref;
+      this.emit('changed', this.pref);
       return true;
     } catch (e) {
-      console.error(err);
       return false;
     }
   }
