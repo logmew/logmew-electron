@@ -10,15 +10,18 @@
         <div class="ui accordion">
           <div class="title">
             <i class="dropdown icon"></i>
-            <span class="short">{{callerTop.method}} {{callerTop.file}}</span>
+            <span class="short">
+              <span class="method">{{callerTop.method}}</span>
+              <span class="file">{{callerTop.file}}</span>
+            </span>
           </div>
           <div class="content">
             <div class="ui list">
               {{#each caller}}
                 <a class="item">
                   <div class="content">
-                    <div class="header">{{method}}</div>
-                    <div class="description">{{file}}</div>
+                    <div class="header method">{{method}}</div>
+                    <div class="description file">{{file}}</div>
                   </div>
                 </a>
               {{/each}}

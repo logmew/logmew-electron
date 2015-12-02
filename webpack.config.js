@@ -1,9 +1,10 @@
 var webpack = require('webpack');
 var ProvidePlugin = webpack.ProvidePlugin;
+var path = require('path');
 
 module.exports = {
   entry: {
-    app: ['webpack/hot/dev-server', './src/js/entry.js']
+    app: ['./src/js/entry.js']
   },
 
   target: 'atom',
@@ -33,6 +34,7 @@ module.exports = {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=10000&minetype=application/font-woff'
       },
+      { test: /jquery.min.js$/, loader: 'expose?jQuery!expose?$!expose?window.jQuery' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file' },
       { test: /\.(jpg|jpeg)$/, loader: 'file' },
       { test: /\.png$/, loader: 'url?mimetype=image/png' },
@@ -40,11 +42,10 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
-    }),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  resolve: {
+    root: [
+      path.join(__dirname + '/src/components'),
+      path.join(__dirname + '/src')
+    ]
+  }
 }

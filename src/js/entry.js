@@ -1,10 +1,10 @@
 'use strict';
 
-require('../components/jquery/dist/jquery.min');
-require('../components/semantic/dist/semantic.min.css');
-require('../components/semantic/dist/semantic.min');
-require('../css/main.scss');
-require('../jquery/jquery.imeenter');
+require('jquery/dist/jquery.min');
+require('semantic/dist/semantic.min.css');
+require('semantic/dist/semantic.min');
+require('css/main.scss');
+require('jquery/jquery.imeenter');
 
 var flight = require('flightjs');
 //flight.debug.events.logAll();

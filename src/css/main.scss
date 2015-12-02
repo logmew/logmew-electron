@@ -1,16 +1,31 @@
-th.time,
-td.time {
-  width: 110px;
-}
+#logview {
+  th.time,
+  td.time {
+    width: 110px;
+  }
 
-th.level,
-td.level {
-  width: 100px;
-}
+  th.level,
+  td.level {
+    width: 100px;
+  }
 
-th.origin,
-td.origin {
-  width: 100px;
+  th.origin,
+  td.origin {
+    width: 100px;
+  }
+
+  .location {
+    font-family: consolas, monospace;
+    .method {
+      font-size: 0.92em;
+      color: #777;
+    }
+
+    .file {
+      font-size: 0.85em;
+      color: #aaa;
+    }
+  }
 }
 
 #pref-modal {
@@ -23,4 +38,8 @@ td.origin {
   input[name="port"] {
     width: 8em;
   }
+}
+
+.location .description {
+  margin-left: 24px;
 }

@@ -46,10 +46,22 @@ app.on('ready', function() {
     mainWindow = null;
   });
 
-  mainWindow.webContents.on('did-finish-load', function () {
+  var influxClient
+
+  mainWindow.webContents.on('did-finish-load', function (e) {
     console.log('ready');
+    observeLogs();
+  });
+
+  var logFetcher;
+  function observeLogs() {
+    if (logFetcher) {
+      logFetcher.start();
+      return;
+    }
+
     var influxClient = influx(prefs.influx);
-    var logFetcher = new LogFetcher(influxClient, 1000, 10);
+    logFetcher = new LogFetcher(influxClient, 100, 200);
     logFetcher.on('data', function (data) {
       mainWindow.webContents.send('logEntriesServed', data);
     });
@@ -60,7 +72,7 @@ app.on('ready', function() {
       influxClient = influx(prefs.influx);
       logFetcher.setClient(influxClient);
     });
-  });
+  };
 
   ipcMain.on('getPrefRequested', function (e) {
     e.sender.send('getPrefServed', prefs);
