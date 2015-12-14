@@ -1,0 +1,8 @@
+<div class="item">
+  <div class="header">Registered host settings</div>
+  {{#each hosts}}
+    <a class="host item" data-id={{id}}>{{name}}</a>
+{{else}}
+    <p class="disabled item">(empty)</div>
+  {{/each}}
+</div>

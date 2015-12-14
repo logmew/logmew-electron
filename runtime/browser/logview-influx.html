@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	  <meta charset="UTF-8">
+	  <title>InfluxDB Log Viewer - Logmew</title>
+  </head>
+  <body>
+    <div class="ui fixed inverted menu" id="header-menu">
+      <img class="logo" src="favicon.png" width="48" height="40"/>
+      <div class="item">Logmew</div>
+      <div class="right menu">
+        <div class="item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Filter log...">
+            <i class="filter link icon"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	  <table class="ui table logview">
+	    <thead>
+		    <th class="time"></th>
+		    <th class="level"></th>
+		    <th class="origin"></th>
+		    <th class="message"></th>
+	    </thead>
+	    <tbody id="logview"></tbody>
+	  </table>
+
+	  <script type="application/javascript" src="bundle/logInflux.entry.js"></script>
+  </body>
+</html>

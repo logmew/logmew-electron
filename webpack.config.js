@@ -4,15 +4,18 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    app: ['./src/js/entry.js']
+    selectHost: ['./src/js/boot/boot-select-host.js'],
+    editHosts: ['./src/js/boot/boot-edit-hosts.js'],
+    logInflux: ['./src/js/boot/boot-log-influx.js'],
   },
 
   target: 'atom',
+
   externals: ['electron'],
 
   output: {
     path: './runtime/browser/bundle',
-    filename: 'main.js',
+    filename: '[name].entry.js',
     publicPath: 'bundle/'
     //publicPath: 'http://localhost:8080/'
   },
@@ -25,7 +28,12 @@ module.exports = {
   module: {
     loaders: [
       //{ test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.hbs$/, loader: 'handlebars?helperDirs[]=' + __dirname + '/src/js/templates/helpers' },
+      {
+        test: /\.hbs$/,
+        loader: 'handlebars?' +
+          'helperDirs[]=' + __dirname + '/src/js/templates/helpers&' +
+          'helperDirs[]=' + __dirname + '/src/js/service/influx/logview/templates/helpers'
+      },
       { test: /\.css$/, loader: 'style-loader!css-loader' },
       { test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
       { test: /\.scss$/, loader: 'style!css!sass' },

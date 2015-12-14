@@ -1,21 +1,19 @@
 'use strict';
 
+const debug = require('debug')('main');
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-const LogFetcher = require('./log-fetcher');
-const influx = require('influx');
-const ipcMain = electron.ipcMain;
-const Prefs = require('./prefs');
+const selectHostWindow = require('./window-select-host');
 
-var prefs = Prefs.load();
+debug('start');
+
+require('./ipc-prefs');
+require('./ipc-window');
+require('./service/influx/main');
 
 // Report crashes to Electron server.
 electron.crashReporter.start();
-
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
@@ -29,57 +27,5 @@ app.on('window-all-closed', function() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 2000, height: 2000, x: 0, y: 0 });
-
-  // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/../browser/index.html');
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
-
-  var influxClient
-
-  mainWindow.webContents.on('did-finish-load', function (e) {
-    console.log('ready');
-    observeLogs();
-  });
-
-  var logFetcher;
-  function observeLogs() {
-    if (logFetcher) {
-      logFetcher.start();
-      return;
-    }
-
-    var influxClient = influx(prefs.influx);
-    logFetcher = new LogFetcher(influxClient, 100, 200);
-    logFetcher.on('data', function (data) {
-      mainWindow.webContents.send('logEntriesServed', data);
-    });
-    logFetcher.start();
-
-    Prefs.on('changed', function (newPrefs) {
-      prefs = newPrefs;
-      influxClient = influx(prefs.influx);
-      logFetcher.setClient(influxClient);
-    });
-  };
-
-  ipcMain.on('getPrefRequested', function (e) {
-    e.sender.send('getPrefServed', prefs);
-  });
-
-  ipcMain.on('setPrefRequested', function (e, data) {
-    console.log('setPref', data);
-    Prefs.save(data);
-  });
+  selectHostWindow.show();
 });

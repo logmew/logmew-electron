@@ -1,20 +1,19 @@
 'use strict';
 
 const flight = require('flightjs');
-const ipcRenderer = window.require('electron').ipcRenderer;
 
 module.exports = flight.component(component);
 
 function component() {
   this.attributes({
-    add: '#add'
+    closeButtonSelector: '.close.button',
   });
 
-  this.populate = function () {
-    ipcRenderer.send('go', 'hell');
+  this.onCloseButtonClick = function () {
+    window.close();
   };
-
+  
   this.after('initialize', function () {
-    this.on("click", { add: this.populate });
+    this.on('click', { closeButtonSelector: this.onCloseButtonClick });
   });
 }

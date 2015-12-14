@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	  <meta charset="UTF-8">
+	  <title>Edit Hosts - Logmew</title>
+  </head>
+  <body>
+    <div class="ui fixed inverted menu" id="header-menu">
+      <img class="logo" src="favicon.png" width="48" height="40"/>
+      <div class="item">Logmew</div>
+    </div>
+
+    <div class="container">
+      <h2 class="ui dividing header">Hosts Settings</h2>
+      <div class="ui grid">
+        <div class="row">
+          <div class="six wide hosts column">
+            <div class="ui segment">
+              <div class="row">
+                <div class="ui fluid action input">
+                  <select class="ui fluid hosts selection dropdown">
+                    <option value="InfluxDB">InfluxDB</option>
+                    <option value="papertrail">Papertrail</option>
+                  </select>
+                  <div type="submit" class="ui teal add button"><i class="add icon"></i>Add</div>
+                </div>
+              </div>
+
+              <div class="hosts row">
+                <div class="ui vertical fluid hosts menu">
+                  <a class="item">abc</a>
+                  <a class="item">cde</a>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="ui borderless right menu">
+                  <a class="disabled remove item" data-content="Remove selected host setting">
+                    <i class="minus square icon"></i>
+                  </a>
+                  <a class="disabled copy item" data-content="Duplicate selected host setting">
+                    <i class="copy icon"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ten wide form column">
+            <form class="ui common form">
+              <input type="hidden" name="id">
+              <div class="field">
+                <label>Setting Name</label>
+                <input type="text" name="name">
+              </div>
+              <div class="field">
+                <label>Host type</label>
+                <input type="text" name="type" readonly>
+              </div>
+            </form>
+            <h4 class="ui dividing header">Service settings</h4>
+            <form class="ui service form"></form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column">
+            <div class="ui yellow right floated close button">Close</div>
+          </div>
+        </div>
+      </div>
+    </div>
+	  <script type="application/javascript" src="bundle/editHosts.entry.js"></script>
+  </body>
+</html>

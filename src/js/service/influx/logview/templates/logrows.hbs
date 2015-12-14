@@ -1,4 +1,4 @@
-{{#each logEntries}}
+{{#each entries}}
 <tr class="{{logRowColor logLevel}}">
   <td class="time">{{formatTime time}}</td>
   <td class="level">{{logLevel}}</td>
@@ -31,5 +31,4 @@
       {{/if}}
     </td>
   </td>
-</tr>
-{{/each}}
+</tr>{{/each}}

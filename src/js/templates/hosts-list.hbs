@@ -1,0 +1,5 @@
+{{#each hosts}}
+  <a class="host item" data-id={{id}}><i class="external icon"></i>{{name}}<div class="ui label">{{type}}</div></a>
+{{else}}
+  <p class="item">No hosts is set yet.</p>
+{{/each}}
