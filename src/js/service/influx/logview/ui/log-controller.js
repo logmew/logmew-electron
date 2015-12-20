@@ -175,7 +175,7 @@ function component() {
       } else {
         this.isViewBottom = false;
         if (curY === 0) {
-          this.fetchLog(true);
+          //this.fetchLog(true);
         }
       }
     });
