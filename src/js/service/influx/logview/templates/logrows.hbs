@@ -1,34 +1,26 @@
 {{#each entries}}
-<tr class="{{logRowColor logLevel}}">
-  <td class="time">{{formatTime time}}</td>
-  <td class="level">{{logLevel}}</td>
-  <td class="origin">{{origin}}</td>
-  <td class="message">
-    {{message}}
-    <div class="location">
-      {{#if callerTop}}
-        <div class="ui accordion">
-          <div class="title">
-            <i class="dropdown icon"></i>
-            <span class="short">
-              <span class="method">{{callerTop.method}}</span>
-              <span class="file">{{callerTop.file}}</span>
-            </span>
-          </div>
-          <div class="content">
-            <div class="ui list">
-              {{#each caller}}
-                <a class="item">
-                  <div class="content">
-                    <div class="header method">{{method}}</div>
-                    <div class="description file">{{file}}</div>
-                  </div>
-                </a>
-              {{/each}}
-            </div>
-          </div>
-        </div>
-      {{/if}}
-    </td>
-  </td>
-</tr>{{/each}}
+<div class="tr {{logRowColor logLevel}}" data-origin="{{origin}}" data-message="{{message}}">
+  <div class="td time">{{formatTime time}}</div>
+  <div class="td level">{{logLevel}}</div>
+  <div class="td origin">{{origin}}</div>
+  <div class="td message"><div class="text">{{message}}</div>
+    {{#if callerTop}}
+      <table class="stacktrace">
+        <thead>
+          <tr>
+            <td class="method"><i class="dropdown icon"></i>{{callerTop.method}}</td>
+            <td class="file">{{callerTop.file}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each caller}}
+            <tr>
+              <td class="method">{{method}}</td>
+              <td class="file">{{file}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    {{/if}}
+  </div>
+</div>{{/each}}

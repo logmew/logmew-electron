@@ -6,6 +6,10 @@ const _ = require('lodash');
 module.exports = flight.component(component);
 
 function component() {
+  this.attributes({
+    logviewSelector: '#logview'
+  });
+
   // to prevent to send duplicated request
   this.requestedFetchLogBackward = false;
 
@@ -154,14 +158,15 @@ function component() {
    */
   this.observeScroll = function () {
     var lastY = 0;
-    $(window).scroll(() => {
-      var curY = window.scrollY;
+    var $logview = this.select('logviewSelector');
+    var tbody = $logview[0];
+    $logview.scroll(() => {
+      var curY = tbody.scrollTop;
       var goesDown = 0 < curY - lastY;
       lastY = curY;
 
       if (goesDown) {
-        var body = document.body;
-        if ((body.scrollHeight - body.offsetHeight) <= window.scrollY) {
+        if (tbody.scrollHeight <= (tbody.clientHeight + tbody.scrollTop)) {
           this.isViewBottom = true;
           if (this.paused) {
             this.resume();

@@ -16,7 +16,6 @@ function component() {
   };
 
   this.after('initialize', function () {
-    console.log('a');
     this.on('click', { prefMenuItem: this.showPreference });
   });
 }
