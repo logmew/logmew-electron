@@ -8,10 +8,24 @@ const _ = require('lodash');
 module.exports = flight.component(component);
 
 function component() {
+  this.attributes({
+    accordionSelector: '.stacktrace thead td',
+  });
+
   this.prependRows = [];
   this.appendRows = [];
   this.removeCount = 0;
   this.removeRows = null;
+
+  this.onClearLog = function () {
+    this.prependRows = [];
+    this.appendRows = [];
+    this.removeCount = 0;
+    this.removeRows = null;
+    fastdom.write(() => {
+      this.$node.empty();
+    });
+  };
 
   this.isScrolledBottom = function () {
     let tbody = this.$node[0];
@@ -220,9 +234,21 @@ function component() {
     });
   };
 
+  this.onAccordionClick = function (e) {
+    fastdom.read(() => {
+      var $stacktrace = $(e.currentTarget).closest('table.stacktrace')
+      console.log($stacktrace[0]);
+      fastdom.write(() => {
+        $stacktrace.toggleClass('active');
+      });
+    });
+  };
+
   this.after('initialize', function () {
     this.on(document, "ui.log.newentries%", this.populate);
     this.on(document, 'ui.log.filter!', this.filter);
     this.on(document, 'ui.log.filter.clear!', this.clearFilter);
+    this.on(document, 'ui.log.clear!', this.onClearLog);
+    this.on('click', { accordionSelector: this.onAccordionClick });
   });
 }

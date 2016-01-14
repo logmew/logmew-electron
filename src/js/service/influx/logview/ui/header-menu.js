@@ -6,16 +6,14 @@ module.exports = flight.component(component);
 
 function component() {
   this.attributes({
-    prefMenuItem: '#pref-menu-item'
+    clearLogMenuItemSelector: '#menu-item-clear-log'
   });
 
-  this.showPreference = function (e) {
-    e.preventDefault();
-    console.log('click');
-    this.trigger('uiShowPreferenceRequested');
+  this.onClearLogClick = function (e) {
+    this.trigger('ui.log.clear!');
   };
 
   this.after('initialize', function () {
-    this.on('click', { prefMenuItem: this.showPreference });
+    this.on('click', { clearLogMenuItemSelector: this.onClearLogClick });
   });
 }

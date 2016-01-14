@@ -21,6 +21,12 @@ function component() {
   this.paused = false;
   this.pendingEntries = [];
 
+  this.onClearLog = function () {
+    this.isViewBottom = true;
+    this.displayEntries = [];
+    this.pendingEntries = [];
+  };
+
   /**
    * Fetch log
    * @param {bool} backward
@@ -187,6 +193,7 @@ function component() {
     this.on('data.log.fetch%', this.onFetchLog);
     this.on('data.log.fetch~', this.onFetchLogError);
     this.on('data.log.newentries%', this.onFetchLog);
+    this.on('ui.log.clear!', this.onClearLog);
 
     console.log('START');
     this.trigger('data.log.fetch!', {

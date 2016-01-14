@@ -91,6 +91,7 @@
       color: rgba(120, 120, 120, .87);
       font-size: 0.9em;
     }
+    thead td { cursor: pointer; }
     tbody { display: none }
     tbody .method { padding-left: 20px; /* same as icon size */ }
   }
